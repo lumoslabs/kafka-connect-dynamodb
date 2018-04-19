@@ -93,7 +93,7 @@ public class DynamoDbSinkTask extends SinkTask {
         try {
             client.putItem(tableName(record), toPutRequest(record).getItem());
         } catch (AmazonDynamoDBException e) {
-            if(e.getErrorCode().equals("ValidationError")
+            if(e.getErrorCode().equals("ValidationException")
                     && e.getErrorMessage().contains("Item size has exceeded the maximum allowed size")) {
                 log.error("Caught item size has exceeded the maximum allowed size exception, item: " + record);
             } else {
